@@ -3,18 +3,18 @@ header{
     float: left;
     font-family: "Angsana New";
     text-align: center;
-    background-color: antiquewhite;
+
 
 }
 nav {
     width: 20%;
     float: left;
-    background-color: azure;
+
 }
 main {
     width: 60%;
     float: left;
-    background-color: blanchedalmond;
+
     font-size: large;
 
 }
@@ -24,7 +24,7 @@ footer {
     text-align: center;
     font-size: small;
     font-weight: bold;
-    background-color: coral;
+
 }
 h1, p, img {
     padding: 20px;
