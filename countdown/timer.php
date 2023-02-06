@@ -48,17 +48,17 @@
     //DAYS
     $Days_Semester = ($Seconds_Semester / $days);
 
-    $Seconds_Semester = $Seconds_Semester - ($days * $Days_Semester);
+    $END_OF_SEMESTER = $END_OF_SEMESTER - ($days * $Days_Semester);
 
     //HRS
     $Hours_Semester = ($Seconds_Semester / hours);
 
-    $Seconds_Semester = $Seconds_Semester - (hours * $Hours_Semester);
+    $END_OF_SEMESTER = $END_OF_SEMESTER - (hours * $Hours_Semester);
 
     //MINS
     $Minutes_Semester = ($Seconds_Semester / $minutes);
 
-    $Seconds_Semester = $Seconds_Semester - ($minutes * $Minutes_Semester);
+    $END_OF_SEMESTER = $END_OF_SEMESTER - ($minutes * $Minutes_Semester);
 
 
 ?>
