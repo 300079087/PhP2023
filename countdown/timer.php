@@ -12,7 +12,7 @@
     //calculating the number of years now
     $years = floor($seconds / $SEC_PER_YEAR);
     //removing the number of years in seconds from total seconds
-    $seconds = $seconds - ($SEC_PER_YEAR * $years);
+    $seconds = $seconds - ($years * $SEC_PER_YEAR);
 
     //calculate the number of days
     $days = floor($seconds / $SEC_PER_DAY);
@@ -30,6 +30,36 @@
 
     $seconds = $seconds - ($SEC_PER_MIN * $minutes);
 
+    //End of semester timer assignment below:
+    //Going to use the same variables from the demo / in class assignment we did.
+    //Doesn't make sure to use different ones in this circumstance.
+
+    //Creating the variables for the assignment.
+    $Seconds_Semester = 0;
+    $Minutes_Semester = 0;
+    $Hours_Semester = 0;
+    $Days_Semester = 0;
+
+    $END_OF_SEMESTER = mktime(0,0,0,5,20,2023);
+
+    //Initial amount of seconds now.
+    $Seconds_Semester = $END_OF_SEMESTER - $NOW;
+
+    //DAYS
+    $Days_Semester = ($Seconds_Semester / $days);
+
+    $Seconds_Semester = $Seconds_Semester - ($days * $Days_Semester);
+
+    //HRS
+    $Hours_Semester = ($Seconds_Semester / hours);
+
+    $Seconds_Semester = $Seconds_Semester - (hours * $Hours_Semester);
+
+    //MINS
+    $Minutes_Semester = ($Seconds_Semester / $minutes);
+
+    $Seconds_Semester = $Seconds_Semester - ($minutes * $Minutes_Semester);
+
 
 ?>
 
@@ -45,9 +75,12 @@
 </head>
 <body>
 <div id="wrapper">
+    <?php include('../includes/header.php'); ?>
+
+    <?php include('../includes/nav.php'); ?>
     <main>
 
-
+        <section id="middle">
         <h3>Countdown Timer to Next Decade</h3>
         <p>
             Now: <?=$NOW ?>
@@ -57,15 +90,19 @@
         <p>
             Current Date <?=date("Y-m-d h:i:s"); ?>
         </p>
-        <p>Years: <?=$years ?> | Days: <?=$days ?> | Hours: <?=$hours ?> | Minutes: <?=$minutes ?> | Seconds: <?=$seconds ?></p>
+        <p>Years: <?= $years ?> | Days: <?=$days ?> | Hours: <?=$hours ?> | Minutes: <?=$minutes ?> | Seconds: <?=$seconds ?></p>
+        </section>
+
+        <h3>Countdown Timer to End of Semester</h3>
+        <p>
+            Now: <?=$NOW ?>
+            End of Semester Time: <?= $END_OF_SEMESTER ?>
+        </p>
+        <p>
+            Current Date <?=date("Y-m-d h:i:s"); ?>
+        </p>
+        <p>Days: <?=$Days_Semester ?> | Hours: <?= $Hours_Semester ?> | Minutes: <?= $Minutes_Semester ?> | Seconds: <?= $Seconds_Semester ?></p>
     </main>
-
-
-
-    <?php include('../includes/header.php'); ?>
-
-    <?php include('../includes/nav.php'); ?>
-
     <?php include('../includes/footer.php'); ?>
 </div>
 </body>

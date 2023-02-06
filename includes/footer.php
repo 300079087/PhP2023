@@ -1,3 +1,3 @@
 <footer>
-    &copy; <?date("y")?>, Austin Steffes
+    &copy; <?date("y")?> Austin Steffes
 </footer>

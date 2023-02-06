@@ -10,9 +10,12 @@
 </head>
 <body>
 <div id="wrapper">
+
+        <?php include('../includes/header.php'); ?>
+
+        <?php include('../includes/nav.php'); ?>
     <main>
         <p><h1>Loop Demo Project</h1></p>
-
     <?php
         $number = 100;
 
@@ -42,7 +45,7 @@
         }
 
         $i = 6;
-        while ($i > 0)
+        while ($i < 0)
         {
             print("Your beautiful");
             $i--;
@@ -57,7 +60,7 @@
 
         for ($i = 1; $i < 5; $i++){
             print("Your intelligent");
-            $i--;
+
         }
 
         // string functions
@@ -70,12 +73,10 @@
         $name_parts = explode(' ', fullname)
     ?>
     </main>
+        <section>
 
-    <?php include('../../includes/header.php'); ?>
-
-    <?php include('../../includes/nav.php'); ?>
-
-    <?php include('../../includes/footer.php'); ?>
+            <?php include('../includes/footer.php'); ?>
+        </section>
 </div>
 </body>
 </html>
