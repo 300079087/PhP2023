@@ -1,12 +1,18 @@
 <?php
+session_start();
 
 $question = "";
 $answer = "Ask me a question";
+$previous_question = '';
 
 if(isset($_POST['txtQuestion'])){
     $question = $_POST['txtQuestion'];
 }
 
+if (isset($_SESSION['previous_question']))
+{
+    $previous_question = $_SESSION['previous_question'];
+}
 $responses = [
     'Ask again later.',
     'Yes',
@@ -32,9 +38,14 @@ if(empty($question))
 elseif(substr($question, -1) != '?'){
     $answer = 'Please enter a question with a ? mark @ the end.';
 }
+elseif($question = $previous_question)
+{
+    $answer = 'Please ask me a different question.';
+}
 else
 {
     $answer = $responses[mt_rand(0,14)];
+    $_SESSION['previous_question'] = $question;
 }
 
 ?>
