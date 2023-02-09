@@ -5,7 +5,7 @@
     $SEC_PER_YEAR = 365 * $SEC_PER_DAY;
 
     $NOW = time();
-    $NEXT_DECADE = mktime(0, 0,0,1,1,2023);
+    $NEXT_DECADE = mktime(0, 0,0,1,1,2030);
 
     $seconds = $NEXT_DECADE - $NOW;
 
@@ -46,19 +46,19 @@
     $Seconds_Semester = $END_OF_SEMESTER - $NOW;
 
     //DAYS
-    $Days_Semester = ($Seconds_Semester / $days);
+    $Days_Semester = floor($Seconds_Semester / $SEC_PER_DAY);
 
-    $Seconds_Semester = $Seconds_Semester - ($days * $Days_Semester);
+    $END_OF_SEMESTER = $END_OF_SEMESTER - ($days * $Days_Semester);
 
     //HRS
-    $Hours_Semester = ($Seconds_Semester / hours);
+    $Hours_Semester = floor($Seconds_Semester / $SEC_PER_HOUR);
 
-    $Seconds_Semester = $Seconds_Semester - (hours * $Hours_Semester);
+    $END_OF_SEMESTER = $END_OF_SEMESTER - ($hours * $Hours_Semester);
 
     //MINS
-    $Minutes_Semester = ($Seconds_Semester / $minutes);
+    $Minutes_Semester = floor($Seconds_Semester / $SEC_PER_MIN);
 
-    $Seconds_Semester = $Seconds_Semester - ($minutes * $Minutes_Semester);
+    $END_OF_SEMESTER = $END_OF_SEMESTER - ($minutes * $Minutes_Semester);
 
 
 ?>

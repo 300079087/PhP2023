@@ -14,8 +14,9 @@ nav {
 main {
     width: 60%;
     float: left;
-
     font-size: large;
+    min-height: 400px;
+    text-align: center;
 }
 footer {
     width: 100%;
