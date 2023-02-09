@@ -10,13 +10,13 @@
 </head>
 <body>
 <div id="wrapper">
-    <main>
-        <p>Assignment Template</p>
-    </main>
-
     <?php include('../includes/header.php'); ?>
 
     <?php include('../includes/nav.php'); ?>
+
+    <main>
+        <p>Assignment Template</p>
+    </main>
 
     <?php include('../includes/footer.php'); ?>
 </div>
