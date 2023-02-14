@@ -2,7 +2,7 @@
 session_start();
 
 $question = "";
-$answer = "Ask me a question";
+$answer = "Ask me a question please";
 $previous_question = '';
 
 if(isset($_POST['txtQuestion'])){
@@ -12,6 +12,10 @@ if(isset($_POST['txtQuestion'])){
 if (isset($_SESSION['previous_question']))
 {
     $previous_question = $_SESSION['previous_question'];
+}
+else
+{
+    $previous_question;
 }
 $responses = [
     'Ask again later.',
@@ -33,12 +37,12 @@ $responses = [
 
 if(empty($question))
 {
-  $answer;
+  $answer = "Ask me a Question.";
 }
-elseif(substr($question, -1) != '?'){
+elseif(substr($question, -1) != "?"){
     $answer = 'Please enter a question with a ? mark @ the end.';
 }
-elseif($question = $previous_question)
+elseif($question == $previous_question)
 {
     $answer = 'Please ask me a different question.';
 }
@@ -68,7 +72,7 @@ else
     <main>
         <h3>Magic 8 Ball</h3>
         <p>
-            <marquee><? $answer ?></marquee>
+            <marquee><?=$answer ?></marquee>
             <form action="8ball.php" method="post">
             <label>Ask a question</label>
             <br/><br/>
