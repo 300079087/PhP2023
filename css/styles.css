@@ -3,8 +3,6 @@ header{
     float: left;
     font-family: "Angsana New";
     text-align: center;
-
-
 }
 nav {
     width: 20%;
@@ -58,4 +56,11 @@ li a:hover {
 
 li:last-child {
     border-bottom: none;
+}
+
+table {
+    margin: auto;
+    border: 1px solid black;
+    width: 80%;
+    border-collapse: collapse;
 }
