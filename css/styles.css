@@ -1,66 +1,99 @@
+.success{
+    font-weight: bold;
+    color: green;
+}
+.error{
+    font-weight: bold;
+    color: red;
+}
 header{
     width: 100%;
     float: left;
-    font-family: "Angsana New";
+    font-family: sans-serif;
     text-align: center;
+    /*background-color: cadetblue;*/
+    /*BackGROUN-color: aquamarine*/
 }
-nav {
-    width: 20%;
-    float: left;
+
+table{
+    margin: auto;
+    border: 1px solid #000000;
+    width: 80%;
+    border-collapse: collapse;
 
 }
-main {
+nav{
+    width: 20%;
+    float: left;
+    /*background-color: coral;*/
+
+}
+
+main{
     width: 60%;
     float: left;
-    font-size: large;
-    min-height: 400px;
-    text-align: center;
+    font-size: larger;
+    /*min-height: 400px;*/
+    /*text-align: center;*/
+
+    /* background-color: darkorchid; */
+
+
 }
-footer {
+main p{
+    margin-top: 30px;
+    /*text-indent: ;*/
+
+}
+
+main img{
+    width: 125px;
+    display: block;
+    margin: 0 auto;
+}
+
+main p{
+    margin-top: 30px;
+}
+
+footer{
     width: 100%;
     float: left;
     text-align: center;
     font-size: small;
     font-weight: bold;
+    /*background-color: crimson;*/
+}
 
-}
-h1, p, img {
-    padding: 20px;
-    text-indent: 25px;
-}
 ul{
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 200px;
-    background-color: darkgray;
+    /*background-color: #F1F1F1;*/
 
     border: 1px solid #555555;
 }
-li {
+
+li{
     text-align: center;
     border-bottom: 1px solid #555555;
-
 }
-li, a {
-    display: block;
-    color: black;
-    padding: 8px 0px 8px 16px;
+
+li a{
+    display:block;
+    color:#000;
+    padding: 8px 0 8px 16px;
     text-decoration: none;
 }
 
-li a:hover {
+/*menu hover*/
+li a:hover{
     background-color: #555;
     color: white;
+
 }
 
-li:last-child {
+li:last-child{
     border-bottom: none;
-}
-
-table {
-    margin: auto;
-    border: 1px solid black;
-    width: 80%;
-    border-collapse: collapse;
 }
