@@ -10,17 +10,18 @@ $db_options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 ];
 
+
+
 if(isset($_GET['id']) ) { //if this is not true
     $id= $_GET['id'];
 
-    //echo("error");
 
     try {
         $db = new PDO($db_dsn, $db_username, $db_password, $db_options);
         $sql = $db->prepare("
         
-            DELETE FROM phpclass.movielist 
-                   where movie_id = :Id
+            DELETE FROM phpclass.customer 
+                   where CustomerID = :Id
 
         "
         );
@@ -28,7 +29,7 @@ if(isset($_GET['id']) ) { //if this is not true
         $sql ->bindValue(':Id', $id);
         $sql -> execute();
 
-        header("Location:list.php?delete=1");
+        header("Location:customerview.php?delete=1");
 
         exit();
     }
@@ -40,4 +41,4 @@ if(isset($_GET['id']) ) { //if this is not true
     }
 
 }
-//header("Location:list.php");
+header("Location:customerview.php");

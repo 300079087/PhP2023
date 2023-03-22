@@ -47,6 +47,11 @@ try{
                 <p class="success">Customer added/updated successfully</p>
             </div>
         <?php } ?>
+        <?php if(isset($_GET['delete']) && !empty($GET['delete'])) { ?>
+            <div>
+                <p class="success">Customer deleted successfully</p>
+            </div>
+        <?php } ?>
 
         <table border="1" width="80%">
             <tr>
@@ -65,6 +70,7 @@ try{
                 <tr>
                     <td><?= $customer['CustomerID']?></td>
                     <td><?= $customer['FirstName']?></td>
+                    <td><a href="customerupdate.php?id=<?= $customer['CustomerID']?>"><?=$customer['LastName']?></a></td>
                     <td><?= $customer['LastName']?></td>
                     <td><?= $customer['Address']?></td>
                     <td><?= $customer['City']?></td>

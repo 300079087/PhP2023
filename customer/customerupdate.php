@@ -10,31 +10,39 @@ $db_options = [
 ];
 
 if(
-    isset($_POST['FirstName']) && !empty($_POST['FirstName']) &&
-    isset($_POST['LastName']) && !empty($_POST['LastName']) &&
-    isset($_POST['Address']) && !empty($_POST['Address']) &&
-    isset($_POST['City']) && !empty($_POST['City']) &&
-    isset($_POST['State']) && !empty($_POST['State']) &&
-    isset($_POST['Zip']) && !empty($_POST['Zip']) &&
-    isset($_POST['Phone']) && !empty($_POST['Phone']) &&
-    isset($_POST['Email']) && !empty($_POST['Email']) &&
-    isset($_POST['Password']) && !empty($_POST['Password'])
+    isset($_POST['first_name']) && !empty($_POST['first_name']) &&
+    isset($_POST['last_name']) && !empty($_POST['last_name']) &&
+    isset($_POST['address']) && !empty($_POST['address']) &&
+    isset($_POST['city']) && !empty($_POST['city']) &&
+    isset($_POST['state']) && !empty($_POST['state']) &&
+    isset($_POST['zip']) && !empty($_POST['zip']) &&
+    isset($_POST['phone']) && !empty($_POST['phone']) &&
+    isset($_POST['email']) && !empty($_POST['email']) &&
+    isset($_POST['password']) && !empty($_POST['password']) &&
+    isset($_POST['verify_password']) && !empty($_POST['verify_password']) &&
+    isset($_POST['customer_id']) && !empty($_POST['customer_id'])
 ) {
-
-    $firstname = $_POST['FirstName'];
-    $lastname = $_POST['LastName'];
-    $address = $_POST['Address'];
-    $city = $_POST['City'];
-    $state = $_POST['State'];
-    $zip = $_POST['Zip'];
-    $phone = $_POST['Phone'];
-    $email = $_POST['Email'];
-    $password = $_POST['Password'];
+    $firstname = $_POST['first_name'];
+    $lastname = $_POST['last_name'];
+    $address = $_POST['address'];
+    $city = $_POST['city'];
+    $state = $_POST['state'];
+    $zip = $_POST['zip'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $verify_password = $_POST['verify_password'];
+    $id = $_POST['customer_id'];
 
 //    echo "<pre>";
 //    print_r($_POST);
 //    echo"</pre>";
 //    exit();
+
+    if ($password != $verify_password) {
+        echo("Your passwords do not match");
+        return;
+    }
 
     try {
         $db = new PDO($db_dsn, $db_username, $db_password, $db_options);
@@ -48,7 +56,7 @@ if(
                     Zip = :Zip,
                     Phone = :Phone,
                     Email = :Email,
-                    Password = :Password,
+                    Password = :Password
                 where 
                     CustomerID = :Id
         ");
@@ -62,6 +70,7 @@ if(
         $sql -> bindValue(  'Phone', $phone);
         $sql -> bindValue(  'Email', $email);
         $sql -> bindValue(  'Password', $password);
+        $sql -> bindValue(  'Id', $id);
         $sql ->execute();
 
         header("Location:customerview.php?success=1");
@@ -89,7 +98,6 @@ if (isset($_GET['id'])){
         $sql->bindValue(":Id", $id);
         $sql-> execute();
         $customer = $sql->fetch();
-
 //         echo "<pre>";
 //         print_r($movie);
 //         echo "</pre>";
@@ -115,14 +123,23 @@ else{
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Add New Movie</title>
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
+
+    <script type="text/javascript">
+        function DeleteMovie(LastName, id){
+            if(confirm("Do you really want to delete " + LastName + "?")){
+                document.location.href = "customerdelete.php?id="+id;
+            }
+        }
+    </script>
+
 </head>
 <body>
 <?php include ('../includes/header.php');?>
 <?php include ('../includes/nav.php') ;?>
 
 <main>
-    <form method="post"">
-    <input type="hidden" name="customer_id" id="customer_id" value="<?= $customer ['customer_id']?>">
+    <form method="post">
+    <input type="hidden" name="customer_id" id="customer_id" value="<?= $customer['CustomerID']?>">
     <table border ="1" width =80%>
         <tr height="100">
             <th colspan="2">
@@ -138,7 +155,7 @@ else{
                     name="first_name"
                     id="first_name"
                     size="50"
-                    value = "<?= $customer ['first_name']?>"
+                    value = "<?= $customer ['FirstName']?>"
                 />
             </td>
         </tr>
@@ -151,7 +168,7 @@ else{
                         name="last_name"
                         id="last_name"
                         size="50"
-                        value = "<?= $customer ['last_name']?>"
+                        value = "<?= $customer ['LastName']?>"
                 />
             </td>
         </tr>
@@ -164,20 +181,7 @@ else{
                         name="address"
                         id="address"
                         size="50"
-                        value = "<?= $customer ['address']?>"
-                />
-            </td>
-        </tr>
-
-        <tr height="50">
-            <th>Address</th>
-            <td>
-                <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        size="50"
-                        value = "<?= $customer ['address']?>"
+                        value = "<?= $customer ['Address']?>"
                 />
             </td>
         </tr>
@@ -190,20 +194,20 @@ else{
                         name="city"
                         id="city"
                         size="50"
-                        value = "<?= $customer ['city']?>"
+                        value = "<?= $customer ['City']?>"
                 />
             </td>
         </tr>
 
         <tr height="50">
-            <th>City</th>
+            <th>State</th>
             <td>
                 <input
                         type="text"
                         name="state"
                         id="state"
                         size="50"
-                        value = "<?= $customer ['state']?>"
+                        value = "<?= $customer ['State']?>"
                 />
             </td>
         </tr>
@@ -216,46 +220,74 @@ else{
                         name="zip"
                         id="zip"
                         size="50"
-                        value = "<?= $customer ['zip']?>"
+                        value = "<?= $customer ['Zip']?>"
                 />
             </td>
         </tr>
 
         <tr height="50">
-            <th>Zip</th>
+            <th>Phone</th>
             <td>
                 <input
                         type="text"
                         name="phone"
                         id="phone"
                         size="50"
-                        value = "<?= $customer ['phone']?>"
+                        value = "<?= $customer ['Phone']?>"
                 />
             </td>
         </tr>
 
         <tr height="50">
-            <th>Zip</th>
+            <th>Email</th>
             <td>
                 <input
                         type="text"
                         name="email"
                         id="email"
                         size="50"
-                        value = "<?= $customer ['email']?>"
+                        value = "<?= $customer ['Email']?>"
                 />
             </td>
         </tr>
 
         <tr height="50">
-            <th>Zip</th>
+            <th>Password</th>
             <td>
                 <input
-                        type="text"
+                        type="password"
                         name="password"
                         id="password"
                         size="50"
-                        value = "<?= $customer ['password']?>"
+                        value = "<?= $customer ['Password']?>"
+                />
+            </td>
+        </tr>
+
+        <tr height="50">
+            <th>Verify Password</th>
+            <td>
+                <input
+                        type="text"
+                        name="verify_password"
+                        id="verify_password"
+                        size="50"
+                        placeholder="Please verify your password"
+
+                />
+            </td>
+        </tr>
+        <tr height = "100">
+            <td colspan="2">
+
+                <input type="submit" value="Update Customer">
+                <input
+                        type="button"
+                        value="Delete Customer"
+                        onClick="DeleteMovie(
+                            '<?=$customer ['LastName'] ?>',
+                            '<?=$customer['CustomerID']?>'
+                            )"
                 />
             </td>
         </tr>
