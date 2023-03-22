@@ -7,5 +7,6 @@
         <li><a href="/magic/dice.php">Dice Game</a></li>
         <li><a href="/oop/car.php">Car Demo</a></li>
         <li><a href="/movielist/list.php">Movie List</a></li>
+        <li><a href="/customer/customerview.php">Customer View</a></li>
     </ul>
 </nav>

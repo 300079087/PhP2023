@@ -9,7 +9,8 @@ if(
     isset($_POST['zip']) && !empty($_POST['zip']) &&
     isset($_POST['phone']) && !empty($_POST['phone']) &&
     isset($_POST['email']) && !empty($_POST['email']) &&
-    isset($_POST['password']) && !empty($_POST['password'])
+    isset($_POST['password']) && !empty($_POST['password']) &&
+    isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])
 ) {
 
     $firstname = $_POST['first_name'];
@@ -21,6 +22,7 @@ if(
     $phone = $_POST['phone'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $confirmpass = $_POST['confirm_password'];
 
     $db_dsn = "mysql:host=localhost;dbname=phpclass";
     $db_username = "dbuser";
@@ -28,6 +30,11 @@ if(
     $db_options = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     ];
+
+    if ($password != $confirmpass) {
+        echo("Your passwords do not match");
+        return;
+    }
 
     try {
 

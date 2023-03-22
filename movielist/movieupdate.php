@@ -15,7 +15,6 @@ if(
     && isset($_POST['movie_id']) && !empty($_POST['movie_id'])
 
 ) {
-
     $title = $_POST['movie_name'];
     $rating = $_POST ['movie_rating'];
     $id = $_POST['movie_id'];
@@ -94,8 +93,8 @@ else{
 
     <script type="text/javascript">
         function DeleteMovie(moviename, id){
-            if(confirm("Do you really want to delete" + moviename + "?")){
-                document.location.href = "delete.php?id="+id;
+            if(confirm("Do you really want to delete " + moviename + "?")){
+                document.location.href = "moviedelete.php?id="+id;
             }
         }
     </script>
