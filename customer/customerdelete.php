@@ -10,8 +10,6 @@ $db_options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 ];
 
-
-
 if(isset($_GET['id']) ) { //if this is not true
     $id= $_GET['id'];
 

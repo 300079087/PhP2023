@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-if ( !isset($_SESSION['UID']))
+if ( !isset($_SESSION['ROLEID']) || $_SESSION['ROLEID'] != '3')
 {
+    $_SESSION['error'] = "Session has expired";
     header('Location:index.php');
 }
 
@@ -12,6 +13,15 @@ $email = "";
 $password = "";
 $verify_password = "";
 $role = "";
+$member_key = sprintf('%04X%04X%04X%04X%04X%04X%04X%04X',
+    mt_rand(0, 65535),
+    mt_rand(0, 65535),
+    mt_rand(0, 65535),
+    mt_rand(16384, 20479),
+    mt_rand(32768, 49151),
+    mt_rand(0, 65535),
+    mt_rand(0, 65535),
+    mt_rand(0, 65535));
 
 if (isset($_POST['submit']))
 {
@@ -66,6 +76,25 @@ if (isset($_POST['submit']))
         include('../includes/db_conn.php');
         try {
             $db = new PDO($db_dsn, $db_username, $db_password, $db_options);
+
+            $sql = $db->prepare("
+                
+                SELECT member_id from phpclass.member_login
+                where email = :Email
+            
+            ");
+
+            $sql->bindValue(":Email", $email);
+            $sql->execute();
+            $row = $sql->fetch();
+
+            if($row != null)
+            {
+                $error_message = $email . ' already exists.';
+            }
+            else
+            {
+
             $sql = $db->prepare("
                 INSERT INTO phpclass.member_login (name, email, password, role_id, member_key)
                 VALUES (:Name, :Email, :Password, :RoleID, :MemberKey)
@@ -74,9 +103,9 @@ if (isset($_POST['submit']))
 
             $sql->bindValue(':Name', $fullname);
             $sql->bindValue(':Email', $email);
-            $sql->bindValue(':Password', $password);
+            $sql->bindValue(':Password', md5($password . $member_key));
             $sql->bindValue(':RoleID', $role);
-            $sql->bindValue(':MemberKey', 'XXXXXXXXXX');
+            $sql->bindValue(':MemberKey', $member_key);
             $sql->execute();
 
             $error_message = "New Member Added";
@@ -87,7 +116,7 @@ if (isset($_POST['submit']))
             $password = "";
             $verify_password = "";
             $role = "";
-
+            }
 
         }
         catch (PDOException $e)

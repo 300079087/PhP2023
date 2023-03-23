@@ -20,26 +20,51 @@ if(
     $login_email = $_POST['login_email'];
     $login_password = $_POST['login_password'];
 
-//echo "<pre>";
-// echo $login_email . $login_password;
-//   echo"</pre>";
-//    exit();
+    try {
 
-   if (strtolower($login_email) == 'admin@test.com' && $login_password == 'p@ss')
-   {
-       $_SESSION['UID'] = 1;
-        header("Location:admin.php");
-   }
-   else if (strtolower($login_email) == 'member@test.com' && $login_password == 'p@ss')
-   {
-       unset($_SESSION['UID']);
-       header("Location:member.php");
-   }
-   else
-   {
-       unset($_SESSION['UID']);
-       $error_message = "Wrong username or password";
-   }
+        $db = new PDO($db_dsn, $db_username, $db_password, $db_options);
+        $sql = $db->prepare("
+        
+            SELECT password, role_id, member_key from phpclass.member_login
+            where email = :Email
+        
+        ");
+
+        $sql->bindValue(':Email', $login_email);
+        $sql->execute();
+        $row = $sql->fetch();
+
+        if($row != null)
+        {
+            $hashed_password = md5($login_password . $row['member_key']);
+
+            if($hashed_password == $row['password'] && $row['role_id'] == 3)
+            {
+                $_SESSION['UID'] = $row['member_key'];
+                $_SESSION['ROLEID'] = $row['role_id'];
+                header("location:admin.php");
+            }
+            else if ($hashed_password == $row['password'] && $row['role_id'] != 3)
+            {
+                header("location:member.php");
+            }
+            else
+            {
+                    $error_message = 'Wrong Username/Password';
+            }
+        }
+        else
+        {
+            $error_message = 'Incorrect Username/Password';
+        }
+
+
+    } catch (PDOException $e)
+    {
+        echo $e->getMessage();
+        exit;
+    }
+
 
 
 }
