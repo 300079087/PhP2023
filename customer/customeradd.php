@@ -23,6 +23,15 @@ if(
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirmpass = $_POST['confirm_password'];
+    $salt = sprintf('%04X%04X%04X%04X%04X%04X%04X%04X',
+        mt_rand(0, 65535),
+        mt_rand(0, 65535),
+        mt_rand(0, 65535),
+        mt_rand(16384, 20479),
+        mt_rand(32768, 49151),
+        mt_rand(0, 65535),
+        mt_rand(0, 65535),
+        mt_rand(0, 65535));
 
     $db_dsn = "mysql:host=localhost;dbname=phpclass";
     $db_username = "dbuser";
@@ -54,7 +63,7 @@ if(
         $sql -> bindValue(  ':Zip', $zip);
         $sql -> bindValue(  ':Phone', $phone);
         $sql -> bindValue(  ':Email', $email);
-        $sql -> bindValue(  ':Password', $password);
+        $sql -> bindValue(  ':Password', md5($password . $salt));
 
         $sql->execute(); // baking the pizza
 
