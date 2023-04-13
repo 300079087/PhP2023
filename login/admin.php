@@ -7,6 +7,24 @@ if ( !isset($_SESSION['ROLEID']) || $_SESSION['ROLEID'] != '3')
     header('Location:index.php');
 }
 
+include('../includes/db_conn.php');
+
+try {
+    $db = new PDO($db_dsn, $db_username, $db_password, $db_options);
+    $sql = $db->prepare("
+        SELECT * FROM phpclass.member_roles
+    ");
+    $sql->execute();
+    $roles = $sql->fetchAll();
+
+
+
+}
+catch(PDOException $e){
+    echo $e->getMessage();
+    exit;
+}
+
 $error_message = "";
 $fullname = "";
 $email = "";
@@ -73,7 +91,7 @@ if (isset($_POST['submit']))
 
     if (empty($error_message))
     {
-        include('../includes/db_conn.php');
+
         try {
             $db = new PDO($db_dsn, $db_username, $db_password, $db_options);
 
@@ -220,9 +238,10 @@ if (isset($_POST['submit']))
                     <th>User Role</th>
                     <td>
                       <select name="txt_role" id="txt_role">
-                          <option value="1" <?php if($role == 1){ echo"selected";} ?>>Member </option>
-                          <option value="2" <?php if($role == 2){ echo"selected";} ?>>Operator </option>
-                          <option value="3" <?php if($role == 3){ echo"selected";} ?>>Admin </option>
+                          <?php
+                          foreach($roles as $role_item){?>
+                              <option value="<?= $role_item['role_id'] ?>"<?php if($role == $role_item['role_id']){ echo"selected";} ?>><?= $role_item['role_name'] ?> </option>
+                          <?php }?>
                       </select>
                     </td>
                 </tr>
