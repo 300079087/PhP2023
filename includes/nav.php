@@ -9,6 +9,6 @@
         <li><a href="/movielist/list.php">Movie List</a></li>
         <li><a href="/customer/customerview.php">Customer View</a></li>
         <li><a href="../login/index.php">Admin Login</a></li>
-        <li><a href="/api/v1/get_races">API - Get Races</a> </li>
+        <li><a href=" ">API - Get Races</a> </li>
     </ul>
 </nav>
