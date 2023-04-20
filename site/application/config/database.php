@@ -74,10 +74,10 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> '',
+	'dsn' => 'mysql:host=localhost;dbname=phpclass',
 	'hostname' => 'localhost',
-	'username' => '',
-	'password' => '',
+	'username' => 'dbuser',
+	'password' => 'dbdev123',
 	'database' => '',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
@@ -92,5 +92,6 @@ $db['default'] = array(
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
-	'save_queries' => TRUE
+	'save_queries' => TRUE,
+    'options' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
 );

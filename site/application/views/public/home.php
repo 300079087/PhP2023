@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +30,14 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <?php
+        if(isset($load_error))
+        {
+            $load_error=null;
+            echo "<script>window.onload=function(){location.href='#login'}</script>";
+        }
+    ?>
+
 </head>
 
 <body>
@@ -53,6 +62,9 @@
                     </li>
                     <li>
                         <a href="#services">Services</a>
+                    </li>
+                    <li>
+                        <a href="#login">Login</a>
                     </li>
                     <li>
                         <a href="#contact">Contact</a>
@@ -163,6 +175,51 @@
 
     </div>
     <!-- /.content-section-a -->
+
+    <a  name="login"></a>
+    <div class="content-section-b">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-sm-12">
+                    <?=validation_errors('<p class= "error">'); ?>
+                    <?php
+                    if (isset($error_message)){$error_message=null; echo "<p class= 'error'>$error_message</p>";}
+                    ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1 col-sm-1">
+                </div>
+                <div class="col-lg-4 col-sm-5">
+                    <h1> Login Account: </h1>
+                    <?php
+                        echo form_open('home/login');
+                        echo form_input('user_name',"",'placeholder="User Name / Email Address"') . "<br/>";
+                        echo form_password('password',"",'placeholder="Password"') . "<br/>";
+                        echo form_submit('submit','Login') . "<br/>";
+                        echo form_close();
+                    ?>
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 col-sm-5">
+                    <h1> Create Account: </h1>
+                    <?php
+                    echo form_open('home/create');
+                    echo form_input('user_name',"",'placeholder="User Name"')."<br/>";
+                    echo form_input('email',"",'placeholder="Email Account"')."<br/>";
+                    echo form_password('password',"",'placeholder="Password"')."<br/>";
+                    echo form_password('confirm_password',"",'placeholder="Confirm Password"')."<br/>";
+                    echo form_submit('submit','Create')."<br/>";
+                    echo form_close();
+                    ?>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+
 
 	<a  name="contact"></a>
     <div class="banner">
