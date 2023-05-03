@@ -5,22 +5,21 @@ class Member extends CI_Model {
 
     public function user_login($Email, $Pwd)
     {
+
         $this->load->database();
         $this->load->library('session');
         try {
 
             $db = new PDO($this->db->dsn, $this->db->username, $this->db->password, $this->db->options);
             $sql = $db->prepare("
-        
-            SELECT memeber_id, password, memeber_key from phpclass.member_login
-            where Email = :Email and Role_ID = 2
-        
-        ");
+                SELECT member_id, password, member_key from phpclass.member_login
+                where Email = :Email and Role_ID = 2
+            ");
 
             $sql->bindValue(':Email', $Email);
             $sql->execute();
-            $row = $sql->fetch();
 
+            $row = $sql->fetch();
             if($row != null)
             {
                 $hashed_password = md5($Pwd . $row['member_key']);

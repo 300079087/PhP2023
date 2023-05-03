@@ -20,6 +20,35 @@ class Admin extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('admin/home');
+        $data = array('dashboard'=>'true');
+		$this->load->view('admin/dashboard', $data);
 	}
+    //1 is blank
+    //2 for registration form code
+    //7 for grid display
+
+    public function manage_marathons()
+    {
+        $data = array('manage_marathons'=>'true');
+        $this->load->view('admin/manage_marathons', $data);
+    }
+
+    public function add_marathons()
+    {
+        $data = array('add_marathons'=>'true');
+        $this->load->view('admin/add_marathons', $data);
+    }
+
+    public function manage_runners()
+    {
+        $data = array('manage_runners'=>'true');
+        $this->load->view('admin/manage_runners', $data);
+    }
+
+    public function registration_form()
+    {
+        $data = array('registration_form'=>'true');
+        $this->load->view('admin/registration_form', $data);
+    }
+
 }

@@ -209,6 +209,12 @@
                     echo form_input('email',"",'placeholder="Email Account"')."<br/>";
                     echo form_password('password',"",'placeholder="Password"')."<br/>";
                     echo form_password('confirm_password',"",'placeholder="Confirm Password"')."<br/>";
+
+                    if('password' != 'confirm_password')
+                    {
+                        $error_message = 'Invalid Password Match';
+                    }
+
                     echo form_submit('submit','Create')."<br/>";
                     echo form_close();
                     ?>

@@ -93,5 +93,5 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE,
-    'options' => [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    'options' => array (PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
 );

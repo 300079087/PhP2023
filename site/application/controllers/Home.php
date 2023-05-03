@@ -34,16 +34,19 @@ class Home extends CI_Controller {
         if ( $this->form_validation->run() == false )
         {
             $data = array('load_error' => 'true');
-            $this->load->view('public/home',$data);
+            $this->load->view('public/home', $data);
+            //$this->load->view('admin/home',$data);
         }
-        else{
+        else
+        {
             //data stuff
             $this->load->model('Member');
 
-                if ($this->Member->user_login($this->input->post('user_name'), $this->input->post('password')))
-                {
-                    $this->load->view('admin/home');
-                }
+            if ($this->Member->user_login($this->input->post('user_name'),
+                $this->input->post('password')))
+            {
+                $this->load->view('admin/home');
+            }
 
             else
             {
@@ -54,8 +57,39 @@ class Home extends CI_Controller {
         }
     }
 
-    public function create($username, $email, $password)
+    public function create()
     {
+        $this->load->library('form_validation');
 
+        $this->form_validation->set_rules('user_name','User Name','trim|required');
+        $this->form_validation->set_rules('email','Email','trim|required|valid_email');
+        $this->form_validation->set_rules('password','Password','trim|required');
+        $this->form_validation->set_rules('confirm_password','Confirm','trim|required');
+
+        if ( $this->form_validation->run() == false)
+        {
+            $data = array('load_error' => 'true');
+            $this->load->view('public/home', $data);
+            //$this->load->view('admin/home',$data);
+        }
+        else
+        {
+
+            //data stuff
+            $this->load->model('CreateMember');
+
+            if ($this->CreateMember->user_create($this->input->post('user_name'), $this->input->post('email'),
+                $this->input->post('password'), $this->input->post('confirm_password')))
+            {
+                $this->load->view('public/home');
+            }
+
+            else
+            {
+                //bad password
+                $data = array('load_error' => 'true', 'error_message'=>'Invalid Data Inputted');
+                $this->load->view('public/home',$data);
+            }
+        }
     }
 }
